@@ -1,0 +1,95 @@
+﻿@using MatejCervelinMvcProjekt.Models.CustomHTMLHelpers
+@using MatejCervelinMvcProjekt.Models
+@model MatejCervelinMvcProjekt.Models.Racun
+
+@{
+    ViewBag.Title = "Create";
+    string greska = ViewBag.error;
+}
+
+    <div class="header">
+        @Html.Partial("_LogoutPartialView")
+    </div>
+
+<div class="formArea container" id="largeForm">
+
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Racun</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p style="color:red">@greska</p>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDRacun, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IDRacun, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IDRacun, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DatumIzdavanja, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DatumIzdavanja, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DatumIzdavanja, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrojRacuna, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BrojRacuna, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BrojRacuna, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KupacID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DDLKupci((List<Kupac>)ViewBag.kupci)
+                    @Html.ValidationMessageFor(model => model.KupacID, "*", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KomercijalistID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DDLKomercijalisti((List<Komercijalist>)ViewBag.komercijalisti)
+                    @Html.ValidationMessageFor(model => model.KomercijalistID, "*", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KreditnaKarticaID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DDLKreditneKartice((List<KreditnaKartica>)ViewBag.kreditneKartice)
+                    @Html.ValidationMessageFor(model => model.KreditnaKarticaID, "*", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Komentar, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Komentar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Komentar, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Nazad na pregled država", "PregledDrzava", "Drzava")
+    </div>
+</div>

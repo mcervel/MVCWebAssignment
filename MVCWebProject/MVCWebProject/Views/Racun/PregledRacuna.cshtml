@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "PregledRacuna";
+    int idKupac = ViewBag.idKupac;
+}
+
+<div class="header">
+    @Html.Partial("_LogoutPartialView")
+</div>
+
+
+<div class="formArea container" id="largeForm">
+
+    <h2>Pregled računa</h2>
+    <p class="btn-group-horizontal">
+        @Html.ActionLink("Nazad na pregled država", "PregledDrzava", "Drzava", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Kreiraj novi račun", "Create", "Racun", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IDRacun</th>
+                <th>Datum izdavanja</th>
+                <th>Broj računa</th>
+                <th>Ime komercijalista</th>
+                <th>Prezime komercijalista</th>
+                <th>Tip kreditne kartice</th>
+                <th>Broj kreditne kartice</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>IDRacun</th>
+                <th>Datum izdavanja</th>
+                <th>Broj računa</th>
+                <th>Ime komercijalista</th>
+                <th>Prezime komercijalista</th>
+                <th>Tip kreditne kartice</th>
+                <th>Broj kreditne kartice</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action(controllerName:"Ajax", actionName: "DohvatiRacuneKupca")',
+                data: { idKupac: @idKupac },
+                success: function (data) {
+                    $.fn.dataTable.moment('MM/DD/YYYY', 'en-US');
+                    $('table.table').dataTable({
+                        paging: true,
+                        sort: true,
+                        searching: true,
+                        data: data,
+                        columns: [
+                            { data: "IDRacun" },
+                            {
+                                data: 'DatumIzdavanja',
+                                render: function (value) {
+                                    return window.moment(value).format('MM/DD/YYYY');
+                                }
+                            },
+                            { data: "BrojRacuna" },
+                            { data: "Ime" },
+                            { data: "Prezime" },
+                            { data: "Tip" },
+                            { data: "Broj" },
+                            {
+                                data: "",
+                                render: function (data, type, racun) {
+                                    return "<a class='btn btn-success btn-sm' href=/Stavka/PregledStavki?idRacun=" + racun.IDRacun + "> Pregled stavki</a>";
+                                }
+                            },
+                            {
+                                data: "",
+                                render: function (data, type, racun) {
+                                    return "<a class='btn btn-primary btn-sm' href=/Racun/Edit?idRacun=" + racun.IDRacun + ">Uredi račun</a>";
+                                }
+                            },
+                            {
+                                data: "",
+                                render: function (data, type, racun) {
+                                    return "<a class='btn btn-success btn-sm' href=/Racun/Create>Dodaj račun</a>";
+                                }
+                            }
+                        ]
+                    })
+                }
+            })
+        })
+
+
+    </script>
+}

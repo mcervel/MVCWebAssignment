@@ -1,0 +1,30 @@
+﻿html,
+body {
+    /*max-height:200px;*/
+    height: 100%;
+}
+
+body {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    display: flex;
+    background-color: #22a0b6;
+    /*padding-bottom: 20px;
+    padding-top: 0;*/
+}
+
+.formArea {
+    padding: 30px;
+    margin: auto;
+    min-height: 350px;
+    border: 0px solid #ccc;
+    overflow: hidden;
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 5px;
+    background-color: white;
+    max-width: 480px;
+    width: 100%;
+}

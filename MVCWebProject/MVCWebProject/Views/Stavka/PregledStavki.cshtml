@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "PregledRacuna";
+    int idRacun = ViewBag.idRacun;
+}
+
+<div class="header">
+    @Html.Partial("_LogoutPartialView")
+</div>
+
+
+<div class="formArea container" id="largeForm">
+
+    <h2>Pregled stavki</h2>
+    <p class="btn-group-horizontal">
+        @Html.ActionLink("Nazad na pregled država", "PregledDrzava", "Drzava", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Kreiraj novu stavku", "Create", "Stavka", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IDStavka</th>
+                <th>Kolicina</th>
+                <th>Cijena Po Komadu</th>
+                <th>Popust U Postocima</th>
+                <th>Ukupna Cijena</th>
+                <th>Naziv Proizvoda</th>
+                <th>Broj Proizvoda</th>
+                <th>Cijena Bez PDV</th>
+                <th>Naziv Potkategorije</th>
+                <th>Naziv Kategorije</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>IDStavka</th>
+                <th>Kolicina</th>
+                <th>Cijena Po Komadu</th>
+                <th>Popust U Postocima</th>
+                <th>Ukupna Cijena</th>
+                <th>Naziv Proizvoda</th>
+                <th>Broj Proizvoda</th>
+                <th>Cijena Bez PDV</th>
+                <th>Naziv Potkategorije</th>
+                <th>Naziv Kategorije</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+             $.ajax({
+                url: '@Url.Action(controllerName:"Ajax", actionName: "DohvatiStavkeRacuna")',
+                data: { idRacun : @idRacun },
+                 success: function (data) {
+                    $('table.table').dataTable({
+                        paging: true,
+                        sort: true,
+                        searching: true,
+                        data: data,
+                        columns: [
+                            { data: "IDStavka" },
+                            { data: 'Kolicina'},
+                            { data: "CijenaPoKomadu" },
+                            { data: "PopustUPostocima" },
+                            { data: "UkupnaCijena" },
+                            { data: "NazivProizvoda" },
+                            { data: "BrojProizvoda"},
+                            { data: "CijenaBezPDV"},
+                            { data: "NazivPotkategorije"},
+                            { data: "NazivKategorije" },
+                            {
+                                data: "",
+                                render: function (data, type, stavka) {
+                                    return "<a class='btn btn-primary btn-sm' href=/Stavka/Edit?idStavka=" + stavka.IDStavka + "> Uredi stavku</a>";
+                                }
+                            },
+                            {
+                                data: "",
+                                render: function (data, type, stavka) {
+                                    return "<a class='btn btn-success btn-sm' href=/Stavka/Create>Kreiraj stavku</a>";
+                                }
+                            }
+                        ]
+                    });
+
+                }
+            });
+        });
+
+
+    </script>
+}
