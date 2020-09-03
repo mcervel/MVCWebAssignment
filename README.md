@@ -10,9 +10,18 @@ The application can only be accessed by a registered user, therefore it uses the
 Based on their Authorization Role, the user has access to different functionalities.
 The user with the Administrator Role can edit all data from different tables in the database.
 Users that do not have the Administrator Role can only view data from database tables.
-The application uses DataTables, a tool used for a detailed overview of all data from tables, with sorting.
-The application also uses AJAX calls which deserialize JSON data fetched from the database (for certain tables only).
-The application also uses HTML helper methods, partial views, validation and custom validators.
+The application uses a variety of elements learnt during the Web Development course.
+The elements used are as follows:
+- jQuery DataTables for a detailed overview of all data from tables, with sorting
+- AJAX Calls which deserialize JSON data fetched from the database (for certain tables only)
+- HTML Helper Methods
+- Partial Views
+- Validation and Custom Validators
+- Razor View Engine Mechanism
+- Weakly Typed and Strongly Typed Views
+- ViewData and ViewBag mechanisms
+- Child Actions
+- ASP.NET Identity
 
 This repository contains two folders.
 
